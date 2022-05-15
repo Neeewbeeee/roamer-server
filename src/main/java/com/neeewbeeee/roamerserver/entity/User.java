@@ -18,7 +18,7 @@ public class User implements Serializable {
     private Integer id;
     private String userName;
     private String password;
-    private Integer age;
+    private Integer type;  // 0 公司 1 社会组织 2 个人
     private String phoneNumber;
-    private String address;
+    private String email;
 }

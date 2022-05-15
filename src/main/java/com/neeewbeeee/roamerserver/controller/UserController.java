@@ -29,6 +29,11 @@ public class UserController {
         return Result.success(res);
     }
 
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
     @PostMapping("/register")
     public Result<?> register(@RequestBody User user){
         User res = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUserName,user.getUserName()));
@@ -51,6 +56,11 @@ public class UserController {
         return Result.success();
     }
 
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
     @PutMapping
     public Result<?> update(@RequestBody User user){
         if(userService.updateById(user)){
