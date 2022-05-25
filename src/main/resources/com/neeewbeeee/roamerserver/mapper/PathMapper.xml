@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neeewbeeee.roamerserver.mapper.PathMapper">
+
+    <resultMap id="PathMap" type="com.neeewbeeee.roamerserver.entity.Path">
+        <id column="id" property="id"></id>
+        <collection property="points" javaType="ArrayList" ofType="com.neeewbeeee.roamerserver.entity.Point">
+            <result column="pid" property="id" />
+            <result column="app_id" property="appId" />
+            <result column="type" property="type" />
+            <result column="pname" property="name" />
+            <result column="location" property="location" />
+            <result column="longitude" property="longitude" />
+            <result column="latitude" property="latitude" />
+            <result column="height" property="height" />
+            <result column="x" property="x" />
+            <result column="y" property="y" />
+            <result column="x" property="z" />
+            <result column="num" property="num" />
+        </collection>
+    </resultMap>
+
+    <select id="selectOnePath" resultMap="PathMap">
+        SELECT path.*,pp.num,
+               point.id as pid,
+               point.app_id,
+               point.type,
+               point.name as pname,
+               point.location,
+               point.longitude,
+               point.latitude,
+               point.height,
+               point.x,
+               point.y,
+               point.z
+        FROM path_point pp LEFT OUTER JOIN point ON point_id=point.id
+                           LEFT JOIN path ON path.id=pp.path_id
+        WHERE pp.path_id = #{id}
+    </select>
+
+
+    <select id="selectPointList" resultType="com.neeewbeeee.roamerserver.entity.Point">
+        SELECT pp.num, point.*
+        FROM path_point pp LEFT OUTER JOIN point ON point_id=point.id
+                           LEFT JOIN path ON path.id=pp.path_id
+        WHERE pp.path_id = #{id}
+    </select>
+
+</mapper>

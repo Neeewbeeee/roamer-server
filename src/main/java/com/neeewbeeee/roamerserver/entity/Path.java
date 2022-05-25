@@ -6,26 +6,24 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author : hongbo
- * @create 2022-05-15-19:03
+ * @create 2022-05-23-22:07
  **/
 
-@TableName("point")
+@TableName("path")
 @Data
-public class Point {
+public class Path {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    private Integer appId;
-    private Integer type; //0 终点 1 中间点
-    private String name;
-    private String location;
-    private double longitude;
-    private double latitude;
-    private double height;
-    private double x;
-    private double y;
-    private double z;
+    private Integer modelId;
+    private String name; // 路径名称
+    private String title; //路径显示名
+    private String description;  // 路径描述
+    private String interpolation; //插值方法
+
     @TableField(exist = false)
-    private Integer num;
+    private List<Point> points;
 }

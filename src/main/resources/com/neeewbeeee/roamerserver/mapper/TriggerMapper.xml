@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.neeewbeeee.roamerserver.mapper.TriggerMapper">
+    <select id="selectHudList" resultType="com.neeewbeeee.roamerserver.entity.Hud">
+        SELECT hud.*
+        FROM trigger_hud th LEFT OUTER JOIN ptrigger ON trigger_id=ptrigger.id
+                           LEFT JOIN hud ON hud.id=th.hud_id
+        WHERE th.trigger_id = #{id} and type = #{type}
+    </select>
+
+</mapper>

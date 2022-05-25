@@ -76,7 +76,7 @@ public class ModelController {
     @GetMapping
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "10") Integer appId) {
+                              @RequestParam(defaultValue = "") Integer appId) {
         LambdaQueryWrapper<Model> wrapper = Wrappers.<Model>lambdaQuery();
         if (appId != null) {
             wrapper.eq(Model::getAppId, appId);

@@ -92,7 +92,7 @@ public class PointController {
     @GetMapping("/des")
     public Result<?> findPageDesPoint(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "10") Integer appId) {
+                              @RequestParam Integer appId) {
         LambdaQueryWrapper<Point> wrapper = Wrappers.<Point>lambdaQuery();
         if (appId != null) {
             wrapper.eq(Point::getAppId, appId);

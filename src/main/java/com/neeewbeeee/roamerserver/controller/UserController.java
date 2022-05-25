@@ -21,69 +21,77 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("/login")
-    public Result<?> login(@RequestBody User user){
+    public Result<?> login(@RequestBody User user) {
         User res = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUserName, user.getUserName()).eq(User::getPassword, user.getPassword()));
-        if(res == null){
-            return Result.error("-1","用户名或密码错误");
+        if (res == null) {
+            return Result.error("-1", "用户名或密码错误");
         }
         return Result.success(res);
     }
 
     /**
      * 用户注册
+     *
      * @param user
      * @return
      */
     @PostMapping("/register")
-    public Result<?> register(@RequestBody User user){
-        User res = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUserName,user.getUserName()));
-        if(res != null){
-            return Result.error("-1","用户名重复");
+    public Result<?> register(@RequestBody User user) {
+        User res = userService.getOne(Wrappers.<User>lambdaQuery().eq(User::getUserName, user.getUserName()));
+        if (res != null) {
+            return Result.error("-1", "用户名重复");
         }
-        if(user.getPassword() == null){
+        if (user.getPassword() == null) {
             user.setPassword("123456");
         }
-        userService.save(user);
-        return Result.success();
+        if (userService.save(user)) {
+            return Result.success();
+        }else{
+            return Result.error("-1", "注册失败");
+        }
     }
 
     @PostMapping
-    public Result<?> save(@RequestBody User user){
-        if(user.getPassword() == null){
+    public Result<?> save(@RequestBody User user) {
+        if (user.getPassword() == null) {
             user.setPassword("123456");
         }
-        userService.save(user);
-        return Result.success();
+        if (userService.save(user)) {
+            return Result.success();
+        }else{
+            return Result.error("-1", "保存失败");
+        }
     }
 
     /**
      * 更新用户信息
+     *
      * @param user
      * @return
      */
     @PutMapping
-    public Result<?> update(@RequestBody User user){
-        if(userService.updateById(user)){
+    public Result<?> update(@RequestBody User user) {
+        if (userService.updateById(user)) {
             return Result.success();
-        }else{
-            return Result.error("-1","更新失败");
+        } else {
+            return Result.error("-1", "更新失败");
         }
     }
 
     @DeleteMapping("/{id}")
-    public Result<?> delete(@PathVariable Long id){
-        if(userService.removeById(id)){
+    public Result<?> delete(@PathVariable Long id) {
+        if (userService.removeById(id)) {
             return Result.success();
-        }else{
-            return Result.error("-1","删除失败");
+        } else {
+            return Result.error("-1", "删除失败");
         }
     }
 
     @GetMapping
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize ,
+                              @RequestParam(defaultValue = "10") Integer pageSize,
                               @RequestParam(defaultValue = "") String search,
-                              @RequestParam(defaultValue = "") Integer type){
+                              @RequestParam(defaultValue = "") Integer type) {
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
         if (StrUtil.isNotBlank(search)) {
             wrapper.like(User::getUserName, search);
