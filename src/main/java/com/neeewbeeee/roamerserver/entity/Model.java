@@ -37,7 +37,7 @@ public class Model {
     private Date time;  //模型本地时间
     private Integer antialiasing; //是否开启抗锯齿
     private Integer highperformance; //是否开启高性能渲染模式
-    private Integer precision; //渲染精度 高精度 0 或中精度 1
+    private Integer renderPrecision; //渲染精度 高精度 0 或中精度 1
     private Integer buffer;  // 是否使用16位深度缓冲区
 
 
