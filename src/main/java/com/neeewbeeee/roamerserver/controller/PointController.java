@@ -36,6 +36,20 @@ public class PointController {
         return Result.success();
     }
 
+    /**
+     * 更新点的属性
+     * @param point
+     * @return
+     */
+    @PutMapping
+    public Result<?> updatePoint(@RequestBody Point point) {
+        if (pointService.updateById(point)) {
+            return Result.success();
+        } else {
+            return Result.error("-1", "更新失败");
+        }
+    }
+
 
     /**
      * 更新模型和终点的绑定
@@ -43,7 +57,7 @@ public class PointController {
      * @param modelId
      * @return
      */
-    @PutMapping
+    @PutMapping("/despoint")
     public Result<?> update(@RequestParam Integer pointId, @RequestParam Integer modelId) {
         Model model = new Model();
         model.setId(modelId);
