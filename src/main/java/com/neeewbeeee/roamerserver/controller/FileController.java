@@ -26,7 +26,8 @@ public class FileController {
     @Value("${server.port}")
     private String port;
 
-    private static final String ip = "http://localhost";
+    @Value("${myconf.ip}")
+    private String ip;
 
 
     /**

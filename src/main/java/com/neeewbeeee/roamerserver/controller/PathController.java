@@ -27,6 +27,12 @@ public class PathController {
     @Autowired
     PathMapper pathMapper;
 
+
+    /**
+     * 创建一条路线
+     * @param path
+     * @return
+     */
     @PostMapping
     public Result<?> save(@RequestBody Path path) {
         if(pathService.insertPath(path) == 1) {

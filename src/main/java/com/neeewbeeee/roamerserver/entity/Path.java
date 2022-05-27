@@ -22,7 +22,7 @@ public class Path {
     private String name; // 路径名称
     private String title; //路径显示名
     private String description;  // 路径描述
-    private String interpolation; //插值方法
+    private Integer interpolation; //插值方法
 
     @TableField(exist = false)
     private List<Point> points;
